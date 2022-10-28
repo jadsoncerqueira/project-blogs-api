@@ -1,10 +1,14 @@
 const express = require('express');
+const { authController } = require('./controllers');
+const validateProUser = require('./midd/validationPropUser');
 
 // ...
 
 const app = express();
 
 app.use(express.json());
+
+app.post('/login',validateProUser, authController.login);
 
 // ...
 

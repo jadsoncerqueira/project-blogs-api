@@ -26,6 +26,12 @@ const insert = async ({ displayName, email, password, image }) => {
   return { type: null, message: newUser };
 };
 
+const getUsers = async () => {
+  const users = await User.findAll({ attributes: ['id', 'displayName', 'email', 'image'] });
+  return users;
+};
+
 module.exports = {
   insert,
+  getUsers,
 };

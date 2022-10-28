@@ -4,20 +4,20 @@ const { createToken } = require('../../utils/jwt');
 
 const validateBody = (credenciais) => {
   const { error, value } = validationLogin.validate(credenciais);
-  if(error) return { type: 'INVALID_VALUE', message: 'Some required fields are missing' }
-  return { type: null, message: value }
+  if (error) return { type: 'INVALID_VALUE', message: 'Some required fields are missing' };
+  return { type: null, message: value };
 };
 
 const validateLogin = async ({ email, password }) => {
-  const user = await User.findOne({ where: { email }});
+  const user = await User.findOne({ where: { email } });
 
-  if(!user || user.password !== password) {
-    return { type: 'Não autorizado', message: 'Invalid fields' }
-  };
+  if (!user || user.password !== password) {
+    return { type: 'Não autorizado', message: 'Invalid fields' };
+  }
 
-  const { id, display_name } = user.dataValues;
+  const { id, displayName } = user.dataValues;
 
-  const token = createToken({ id, display_name, email });
+  const token = createToken({ id, displayName, email });
 
   return { type: null, message: token };
 };
@@ -25,4 +25,4 @@ const validateLogin = async ({ email, password }) => {
 module.exports = {
   validateBody,
   validateLogin,
-}
+};

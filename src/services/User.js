@@ -31,8 +31,10 @@ const getUsers = async () => {
   return users;
 };
 
-const getUser = async ( id ) => {
-  const user = await User.findAll({ attributes: ['id', 'displayName', 'email', 'image'], where: { id } });
+const getUser = async (id) => {
+  const user = await User.findAll({
+    attributes: ['id', 'displayName', 'email', 'image'], where: { id },
+  });
   return user;
 };
 

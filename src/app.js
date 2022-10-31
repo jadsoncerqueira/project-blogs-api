@@ -22,6 +22,7 @@ app.get('/user', tokenValidate, userController.getUsers);
 app.get('/user/:id', tokenValidate, userController.getUser);
 app.get('/categories', tokenValidate, categoryController.getCategories);
 app.get('/post', tokenValidate, blogPostController.getPosts);
+app.get('/post/:id', tokenValidate, blogPostController.getPostId);
 
 // ...
 

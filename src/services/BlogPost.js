@@ -39,7 +39,20 @@ const getPosts = async () => {
   return response;
 };
 
+const getPostId = async (id) => {
+  const response = await BlogPost.findOne({
+    where: { id },
+    include: [
+      { model: User, as: 'user', attributes: ['id', 'displayName', 'email', 'image'] },
+      { model: Category, as: 'categories' }, 
+    ], 
+  });
+  if (!response) return { type: 'POST_NOT_FOUND', message: 'Post does not exist' };
+  return { type: null, message: response };
+};
+
 module.exports = {
   insertBlogPost,
   getPosts,
+  getPostId,
 };

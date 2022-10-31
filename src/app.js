@@ -25,6 +25,7 @@ app.get('/post', tokenValidate, blogPostController.getPosts);
 app.get('/post/:id', tokenValidate, blogPostController.getPostId);
 app.put('/post/:id', tokenValidate, blogPostController.updatePost);
 app.delete('/post/:id', tokenValidate, blogPostController.removePost);
+app.delete('/user/me', tokenValidate, userController.removeUser);
 
 // ...
 

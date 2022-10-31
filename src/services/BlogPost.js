@@ -29,6 +29,17 @@ const insertBlogPost = async ({ title, content, categoryIds }, { email }) => {
   return dataValues;
 };
 
+const getPosts = async () => {
+  const response = await BlogPost.findAll({
+    include: [
+      { model: User, as: 'user', attributes: ['id', 'displayName', 'email', 'image'] },
+      { model: Category, as: 'categories' }, 
+    ], 
+  });
+  return response;
+};
+
 module.exports = {
   insertBlogPost,
+  getPosts,
 };

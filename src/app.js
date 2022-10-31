@@ -22,6 +22,7 @@ app.get('/user', tokenValidate, userController.getUsers);
 app.get('/user/:id', tokenValidate, userController.getUser);
 app.get('/categories', tokenValidate, categoryController.getCategories);
 app.get('/post', tokenValidate, blogPostController.getPosts);
+app.get('/post/search', tokenValidate, blogPostController.queryPost);
 app.get('/post/:id', tokenValidate, blogPostController.getPostId);
 app.put('/post/:id', tokenValidate, blogPostController.updatePost);
 app.delete('/post/:id', tokenValidate, blogPostController.removePost);

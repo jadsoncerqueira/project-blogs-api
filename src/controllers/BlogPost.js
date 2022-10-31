@@ -31,10 +31,16 @@ const removePost = async (req, res) => {
   return res.status(204).json();
 };
 
+const queryPost = async (req, res) => {
+  const response = await blogPostService.queryPost(req.query.q);
+  return res.status(200).json(response.message);
+};
+
 module.exports = {
   insertPost,
   getPosts,
   getPostId,
   updatePost,
   removePost,
+  queryPost,
 };

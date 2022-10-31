@@ -67,9 +67,21 @@ const updatePost = async (idUser, idPost, { title, content }) => {
   return { type: null, message: response.message };
 };
 
+const removePost = async (idUser, idPost) => {
+  const id = idPost;
+
+  const response = await BlogPost.findOne({ where: { id } });
+  if (!response) return { type: 404, message: 'Post does not exist' };
+  if (response.dataValues.userId !== idUser) return { type: 401, message: 'Unauthorized user' };
+
+  await BlogPost.destroy({ where: { id } });
+  return { type: null, message: '' };
+};
+
 module.exports = {
   insertBlogPost,
   getPosts,
   getPostId,
   updatePost,
+  removePost,
 };

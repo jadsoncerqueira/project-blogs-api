@@ -1,5 +1,5 @@
 const { BlogPost, PostCategory, User, Category } = require('../models');
-const { validationPost } = require('./validation/schema');
+const { validationPost, validationPostPut } = require('./validation/schema');
 
 const insertBlogPost = async ({ title, content, categoryIds }, { email }) => {
   const { error } = validationPost.validate({ title, content, categoryIds });
@@ -51,8 +51,25 @@ const getPostId = async (id) => {
   return { type: null, message: response };
 };
 
+const updatePost = async (idUser, idPost, { title, content }) => {
+  const { error } = validationPostPut.validate({ title, content });
+  if (error) return { type: 400, message: 'Some required fields are missing' };
+
+  const id = idPost;
+
+  const { dataValues } = await BlogPost.findOne({ where: { id } });
+  if (dataValues.userId !== idUser) return { type: 401, message: 'Unauthorized user' };
+
+  await BlogPost.update({ title, content }, { where: { id } });
+
+  const response = await getPostId(id);
+  
+  return { type: null, message: response.message };
+};
+
 module.exports = {
   insertBlogPost,
   getPosts,
   getPostId,
+  updatePost,
 };

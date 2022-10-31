@@ -20,6 +20,15 @@ const validationPost = Joi.object({
   }),
 });
 
+const validationPostPut = Joi.object({
+  title: Joi.string().required().messages({
+    'string.empty': fieldsRequired,
+  }),
+  content: Joi.string().required().messages({
+    'string.empty': fieldsRequired,
+  }),
+});
+
 const valDisplayName = Joi.string().min(8).required();
 const valEmail = Joi.string().email().required();
 const valPassword = Joi.string().min(6).required();
@@ -30,4 +39,5 @@ module.exports = {
   valEmail,
   valPassword,
   validationPost,
+  validationPostPut,
 };

@@ -19,8 +19,15 @@ const getPostId = async (req, res) => {
   res.status(200).json(response.message);
 };
 
+const updatePost = async (req, res) => {
+  const response = await blogPostService.updatePost(req.user.id, Number(req.params.id), req.body);
+  if (response.type) return res.status(response.type).json({ message: response.message });
+  return res.status(200).json(response.message);
+};
+
 module.exports = {
   insertPost,
   getPosts,
   getPostId,
+  updatePost,
 };

@@ -7,6 +7,7 @@ const tokenValidate = (req, res, next) => {
   if (response.type) {
     res.status(mapError(response.type)).json({ message: response.message });
   } else {
+    req.user = response.message;
     next();
   }
 };
